@@ -21,6 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/geekouts")
 public class GeekoutController {
+
     @Autowired
     private GeekoutRepository repository;
 
