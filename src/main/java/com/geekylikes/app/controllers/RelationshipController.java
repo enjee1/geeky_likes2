@@ -50,7 +50,7 @@ public class RelationshipController {
         Optional<Relationship> rel = repository.findByOriginator_idAndRecipient_id(originator.getId(), recipient.getId());
 
         if (rel.isPresent()) {
-            return new ResponseEntity<>(new MessageResponse("Nice try, be patient."), HttpStatus.OK)
+            return new ResponseEntity<>(new MessageResponse("Nice try, be patient."), HttpStatus.OK);
         }
 
         // check for existing recipient user relationship
@@ -113,7 +113,7 @@ public class RelationshipController {
             // if blocked, do nothing
 
         try {
-            repository.save(new Relationship(originator, recipient, ERelationship.BLOCKED))
+            repository.save(new Relationship(originator, recipient, ERelationship.BLOCKED));
         } catch (Exception exc) {
             System.out.println("Error: " + exc.getLocalizedMessage());
             return new ResponseEntity<>(new MessageResponse("Server error: "), HttpStatus.INTERNAL_SERVER_ERROR);
