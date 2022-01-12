@@ -51,6 +51,25 @@ public class Developer {
     @JsonIgnore
     private User user;
 
+    @ManyToMany()
+    @JoinTable(
+            name = "relationship",
+            joinColumns = @JoinColumn(name="originator_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="recipient_id", referencedColumnName = "id"))
+
+    @JsonIgnore
+    private Set<Developer> relationships;
+
+    @ManyToMany()
+    @JoinTable(
+            name = "relationship",
+            joinColumns = @JoinColumn(name = "recipient_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "originator_id", referencedColumnName = "id")
+    )
+
+    @JsonIgnore
+    private Set<Developer> inverseRelationships;
+
     public Developer() {}
 
     public Developer(String name, String email, Integer cohort, User user) {
@@ -58,6 +77,22 @@ public class Developer {
         this.email = email;
         this.cohort = cohort;
         this.user = user;
+    }
+
+    public Set<Developer> getRelationships() {
+        return relationships;
+    }
+
+    public void setRelationships(Set<Developer> relationships) {
+        this.relationships = relationships;
+    }
+
+    public Set<Developer> getInverseRelationships() {
+        return inverseRelationships;
+    }
+
+    public void setInverseRelationships(Set<Developer> inverseRelationships) {
+        this.inverseRelationships = inverseRelationships;
     }
 
     public Long getId() {
@@ -99,14 +134,6 @@ public class Developer {
     public Set<Language> getLanguages() {
         return languages;
     }
-
-//    public List<Geekout> getGeekouts() {
-//        return geekouts;
-//    }
-//
-//    public void setGeekouts(List<Geekout> geekouts) {
-//        this.geekouts = geekouts;
-//    }
 
     public Avatar getAvatar() {
         return avatar;
